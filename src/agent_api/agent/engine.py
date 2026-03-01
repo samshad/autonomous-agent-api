@@ -6,12 +6,13 @@ import structlog
 
 from agent_api.agent.llm_client import LLMClient
 from agent_api.agent.registry import registry
+from agent_api.core.config import settings
 from agent_api.models.agent import Message
 from agent_api.services.commerce import CommerceService
 
 logger = structlog.get_logger(__name__)
 
-MAX_REACT_ITERATIONS = 10
+MAX_REACT_ITERATIONS = settings.max_react_iterations
 
 
 class AgentEngine:
@@ -53,8 +54,11 @@ class AgentEngine:
         Executes the autonomous conversation loop until the AI resolves the
         intent or safely aborts.
         """
+        auth_context = (f"The current authenticated user has user_id={user_id}. "
+                        f"Always use this user_id when calling tools.") if user_id else "The user is unauthenticated."
         system_prompt = (
             "You are a helpful, professional customer support agent for an e-commerce platform. "
+            f"{auth_context} "
             "Use the provided tools to look up orders, cancel orders, "
             "or list orders when the user asks. "
             "Always use the exact parameters the tools require (e.g. order number or user ID). "

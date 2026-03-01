@@ -122,3 +122,11 @@ async def get_order_details_tool(
     except Exception as e:
         logger.error("tool.get_order_details_unexpected_error", error=str(e))
         return "Action Failed: An unexpected system error occurred while fetching order details."
+
+
+def init_tools() -> None:
+    """
+    Dummy function called during app startup.
+    Ensures this module is imported and the @registry decorators are evaluated.
+    """
+    pass

@@ -25,7 +25,7 @@ class OllamaClient:
     def __init__(
         self, base_url: str = settings.llm_base_url, model: str = settings.llm_model
     ) -> None:
-        self.base_url = base_url
+        self.base_url = base_url + "/api"
         self.model = model
 
     async def chat(
