@@ -95,9 +95,7 @@ class CommerceService:
 
         if not updated_order:
             logger.error("commerce.order_update_failed", order_id=order_id)
-            raise EntityNotFoundError(
-                f"Order #{order_id} could not be updated. Please try again."
-            )
+            raise EntityNotFoundError(f"Order #{order_id} could not be updated. Please try again.")
 
         logger.info("commerce.order_cancelled", order_id=order_id)
         return updated_order
