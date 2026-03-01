@@ -44,6 +44,7 @@ class OrderRepository:
 
         order.status = new_status
         await self._session.flush()
+        await self._session.refresh(order)
 
         logger.info("order_status_updated", order_id=order_id, new_status=new_status.value)
         return order

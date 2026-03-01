@@ -1,6 +1,10 @@
-# Autonomous E-Commerce Agent API
+# Autonomous Agent API
 
 Async FastAPI API that acts as an **autonomous customer support agent**: natural language → ReAct loop + tool use (order lookup, cancel, list) → PostgreSQL via SQLAlchemy → natural language response.
+
+## System Architecture
+
+![System Architecture](docs/system-architecture.webp)
 
 ## Features
 

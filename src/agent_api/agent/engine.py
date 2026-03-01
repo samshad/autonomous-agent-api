@@ -70,8 +70,14 @@ class AgentEngine:
         Executes the autonomous conversation loop until the AI resolves the
         intent or safely aborts.
         """
-        auth_context = (f"The current authenticated user has user_id={user_id}. "
-                        f"Always use this user_id when calling tools.") if user_id else "The user is unauthenticated."
+        auth_context = (
+            (
+                f"The current authenticated user has user_id={user_id}. "
+                f"Always use this user_id when calling tools."
+            )
+            if user_id
+            else "The user is unauthenticated."
+        )
         system_prompt = SYSTEM_PROMPT_TEMPLATE.format(auth_context=auth_context)
 
         messages: list[Message] = [
