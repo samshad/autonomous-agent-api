@@ -46,7 +46,12 @@ async def test_list_orders_tool_success(mock_service: AsyncMock) -> None:
     mock_service.list_orders.return_value = {
         "count": 1,
         "orders": [
-            {"order_id": 99, "status": "pending", "created_at": "2026-03-01T12:00:00Z"}
+            {
+                "order_id": 99,
+                "status": "pending",
+                "created_at": "2026-03-01T12:00:00Z",
+                "updated_at": "2026-03-01T12:00:00Z",
+            }
         ]
     }
 
@@ -62,6 +67,7 @@ async def test_get_order_details_tool_success(mock_service: AsyncMock) -> None:
     """Ensures fetching a single order formats the details string correctly."""
     mock_order = Order(id=55, status=OrderStatus.PROCESSING)
     mock_order.created_at = datetime.now(UTC)
+    mock_order.updated_at = datetime.now(UTC)
     mock_service.get_order_details.return_value = mock_order
 
     result = await get_order_details_tool(service=mock_service, order_id=55)

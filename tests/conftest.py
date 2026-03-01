@@ -1,8 +1,8 @@
+import os
+
 import pytest
 import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-
-from agent_api.core.config import settings
 
 pytest_plugins = ("pytest_asyncio",)
 
@@ -10,6 +10,14 @@ pytest_plugins = ("pytest_asyncio",)
 @pytest.fixture(scope="session")
 def anyio_backend() -> str:
     return "asyncio"
+
+
+def _get_database_url() -> str:
+    """Return DATABASE_URL or skip the test when it is not configured."""
+    url = os.environ.get("DATABASE_URL", "")
+    if not url:
+        pytest.skip("DATABASE_URL not set — skipping real-database test")
+    return url
 
 
 @pytest_asyncio.fixture
@@ -20,7 +28,8 @@ async def real_db_session() -> AsyncSession:  # type: ignore
     Any commits inside the test become nested savepoints.
     When the test ends, the top-level transaction is rolled back, leaving the DB untouched.
     """
-    engine = create_async_engine(settings.database_url, echo=False)
+    database_url = _get_database_url()
+    engine = create_async_engine(database_url, echo=False)
 
     async with engine.connect() as conn:
         # Start a top-level transaction

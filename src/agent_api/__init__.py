@@ -1,2 +1,1 @@
-def main() -> None:
-    print("Hello from autonomous-agent-api!")
+"""Autonomous Agent API — async FastAPI + ReAct + SQLAlchemy."""

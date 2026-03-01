@@ -8,7 +8,7 @@ from logtail import LogtailHandler
 
 from agent_api.core.config import settings
 
-LOGS_DIR = Path("logs")
+LOGS_DIR = Path(settings.log_dir)
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -32,8 +32,8 @@ def setup_logging() -> None:
         "file": {
             "class": "logging.handlers.RotatingFileHandler",
             "filename": str(LOGS_DIR / "app.log"),
-            "maxBytes": 10 * 1024 * 1024,
-            "backupCount": 5,
+            "maxBytes": settings.log_max_bytes,
+            "backupCount": settings.log_backup_count,
             "formatter": "json",
         },
     }
@@ -70,7 +70,7 @@ def setup_logging() -> None:
         "loggers": {
             "": {
                 "handlers": active_handlers,
-                "level": "DEBUG" if settings.debug else "INFO",
+                "level": settings.log_level,
             },
             "uvicorn.error": {
                 "handlers": active_handlers,

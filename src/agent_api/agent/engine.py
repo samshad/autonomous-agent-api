@@ -12,7 +12,18 @@ from agent_api.services.commerce import CommerceService
 
 logger = structlog.get_logger(__name__)
 
-MAX_REACT_ITERATIONS = settings.max_react_iterations
+SYSTEM_PROMPT_TEMPLATE = (
+    "You are a helpful, professional customer support agent for an e-commerce platform. "
+    "{auth_context} "
+    "Use the provided tools to look up orders, cancel orders, "
+    "or list orders when the user asks. "
+    "Always use the exact parameters the tools require (e.g. order number or user ID). "
+    "If a user asks to cancel an order but doesn't provide an order ID, ask them for it. "
+    "Do NOT guess order IDs or make up information. "
+    "Base your answers strictly on tool outputs. "
+    "Reply in natural language after each tool result. "
+    "When the user's request is fully handled, give a clear final reply."
+)
 
 
 class AgentEngine:
@@ -21,11 +32,16 @@ class AgentEngine:
     Decoupled from specific LLMs (via LLMClient) and HTTP APIs.
     """
 
-    def __init__(self, llm_client: LLMClient, commerce_service: CommerceService) -> None:
+    def __init__(
+        self,
+        llm_client: LLMClient,
+        commerce_service: CommerceService,
+        max_iterations: int | None = None,
+    ) -> None:
         self.llm = llm_client
         self.service = commerce_service
         self.tools_schema = registry.get_all_schemas()
-        self.max_loops = MAX_REACT_ITERATIONS
+        self.max_loops = max_iterations or settings.max_react_iterations
 
     async def _execute_tool(self, tool_name: str, arguments: dict, user_id: int | None) -> str:
         """Dynamically validates and safely executes a tool from the registry."""
@@ -56,18 +72,7 @@ class AgentEngine:
         """
         auth_context = (f"The current authenticated user has user_id={user_id}. "
                         f"Always use this user_id when calling tools.") if user_id else "The user is unauthenticated."
-        system_prompt = (
-            "You are a helpful, professional customer support agent for an e-commerce platform. "
-            f"{auth_context} "
-            "Use the provided tools to look up orders, cancel orders, "
-            "or list orders when the user asks. "
-            "Always use the exact parameters the tools require (e.g. order number or user ID). "
-            "If a user asks to cancel an order but doesn't provide an order ID, ask them for it. "
-            "Do NOT guess order IDs or make up information. "
-            "Base your answers strictly on tool outputs."
-            "Reply in natural language after each tool result. "
-            "When the user's request is fully handled, give a clear final reply."
-        )
+        system_prompt = SYSTEM_PROMPT_TEMPLATE.format(auth_context=auth_context)
 
         messages: list[Message] = [
             Message(role="system", content=system_prompt),

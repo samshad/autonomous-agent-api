@@ -35,22 +35,27 @@ class CommerceService:
             raise EntityNotFoundError(f"Order #{order_id} could not be found.")
         return order
 
+    @staticmethod
+    def _verify_ownership(order: Order, user_id: int | None) -> None:
+        """
+        Guard that ensures the caller owns the resource.
+        Raises OwnershipError (mapped to 404) to avoid leaking resource existence.
+        """
+        if user_id is not None and order.user_id != user_id:
+            logger.warning(
+                "commerce.ownership_check_failed",
+                order_id=order.id,
+                user_id=user_id,
+            )
+            raise OwnershipError(f"Order #{order.id} could not be found.")
+
     async def get_order_details(self, order_id: int, user_id: int | None = None) -> Order:
         """
         Retrieve a single order.
         Enforces ownership if user_id is provided, raising OwnershipError if mismatched.
         """
         order = await self._get_order_or_raise(order_id)
-
-        if user_id is not None and order.user_id != user_id:
-            logger.warning(
-                "commerce.ownership_check_failed",
-                order_id=order_id,
-                user_id=user_id,
-            )
-            logger.error("OwnershipError: Ownership check failed", order_id=order_id)
-            raise OwnershipError(f"Order #{order_id} could not be found.")
-
+        self._verify_ownership(order, user_id)
         return order
 
     async def cancel_order(self, order_id: int, user_id: int | None = None) -> Order:
@@ -64,14 +69,7 @@ class CommerceService:
           to make the caller aware the state was not changed.
         """
         order = await self._get_order_or_raise(order_id)
-
-        if user_id is not None and order.user_id != user_id:
-            logger.warning(
-                "commerce.ownership_check_failed",
-                order_id=order_id,
-                user_id=user_id,
-            )
-            raise OwnershipError(f"Order #{order_id} could not be found.")
+        self._verify_ownership(order, user_id)
 
         if order.status in _UNCANCELLABLE_STATUSES:
             logger.warning(
@@ -110,6 +108,7 @@ class CommerceService:
                     "order_id": o.id,
                     "status": o.status.value,
                     "created_at": o.created_at.isoformat() if o.created_at else None,
+                    "updated_at": o.updated_at.isoformat() if o.updated_at else None,
                 }
                 for o in orders
             ],
