@@ -8,11 +8,10 @@ runs migrations against the async engine.
 import asyncio
 from logging.config import fileConfig
 
+from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
-
-from alembic import context
 
 from agent_api.core.config import settings
 from agent_api.models.domain import Base  # noqa: F401 — registers all models
