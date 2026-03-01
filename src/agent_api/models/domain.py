@@ -1,10 +1,10 @@
-"""SQLAlchemy declarative models: User, Order, Product."""
+"""SQLAlchemy declarative models: User, Order, Product, RequestLog."""
 
 from datetime import datetime
 from decimal import Decimal
 from enum import StrEnum, auto
 
-from sqlalchemy import DateTime, ForeignKey, Numeric, String
+from sqlalchemy import DateTime, Float, ForeignKey, Integer, Numeric, String, Text
 from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
@@ -93,3 +93,29 @@ class OrderItem(Base):
 
     order: Mapped["Order"] = relationship(back_populates="items")
     product: Mapped["Product"] = relationship()
+
+
+class RequestLog(Base):
+    """
+    Persists every inbound API request for observability & auditing.
+    The ``request_id`` is the correlation / trace ID returned in the
+    ``X-Request-ID`` response header so that any log line or DB row
+    can be traced back to the originating HTTP call.
+    """
+
+    __tablename__ = "request_logs"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    request_id: Mapped[str] = mapped_column(String(36), unique=True, index=True, nullable=False)
+    method: Mapped[str] = mapped_column(String(10), nullable=False)
+    path: Mapped[str] = mapped_column(String(2048), nullable=False)
+    status_code: Mapped[int] = mapped_column(Integer, nullable=False)
+    duration_ms: Mapped[float] = mapped_column(Float, nullable=False)
+    client_host: Mapped[str | None] = mapped_column(String(45), nullable=True)
+    user_agent: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+    )
+

@@ -2,28 +2,35 @@ import asyncio
 from decimal import Decimal
 
 import structlog
+from alembic import command
+from alembic.config import Config
 
 from agent_api.core.config import settings
 from agent_api.core.database import DatabaseManager
-from agent_api.models.domain import Base, Order, OrderItem, OrderStatus, Product, User
+from agent_api.models.domain import Order, OrderItem, OrderStatus, Product, User
 from agent_api.repository.order_repo import OrderRepository
 
 logger = structlog.get_logger(__name__)
 
 
+def run_migrations() -> None:
+    """Run Alembic migrations to HEAD so the schema is always up-to-date."""
+    alembic_cfg = Config("alembic.ini")
+    command.upgrade(alembic_cfg, "head")
+    logger.info("alembic_migrations_applied")
+
+
 async def main() -> None:
     """
-    Initializes the database schema, seeds dummy data, and tests repository functions.
+    Applies Alembic migrations, seeds dummy data, and tests repository functions.
     """
     logger.info("connecting_to_database", url=settings.database_url)
 
+    # 1. Apply schema migrations via Alembic
+    run_migrations()
+
     db_manager = DatabaseManager(database_url=settings.database_url, echo=False)
 
-    async with db_manager._engine.begin() as conn:
-        logger.info("creating_schema")
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
-        logger.info("schema_created")
 
     async with db_manager.session() as session:
         logger.info("seeding_dummy_data")
@@ -46,24 +53,9 @@ async def main() -> None:
         session.add_all([o1, o2, o3])
         await session.flush()
 
-        ot1 = OrderItem(
-            order_id=o1.id,
-            product_id=p1.id,
-            quantity=1,
-            unit_price=p1.price
-        )
-        ot2 = OrderItem(
-            order_id=o2.id,
-            product_id=p2.id,
-            quantity=2,
-            unit_price=p3.price
-        )
-        ot3 = OrderItem(
-            order_id=o3.id,
-            product_id=p3.id,
-            quantity=3,
-            unit_price=p3.price
-        )
+        ot1 = OrderItem(order_id=o1.id, product_id=p1.id, quantity=1, unit_price=p1.price)
+        ot2 = OrderItem(order_id=o2.id, product_id=p2.id, quantity=2, unit_price=p3.price)
+        ot3 = OrderItem(order_id=o3.id, product_id=p3.id, quantity=3, unit_price=p3.price)
 
         session.add_all([ot1, ot2, ot3])
 

@@ -3,6 +3,7 @@ name = "autonomous-agent-api"
 version = "0.1.0"
 description = "Autonomous Agent API - Async FastAPI + ReAct + SQLAlchemy"
 readme = "README.md"
+license = { text = "MIT" }
 authors = [
     { name = "Samshad", email = "samshad.ru@gmail.com" }
 ]
@@ -34,7 +35,7 @@ dev = [
 ]
 
 [project.scripts]
-autonomous-agent-api = "agent_api:main"
+autonomous-agent-api = "agent_api.main:app"
 
 [build-system]
 requires = ["uv_build>=0.10.4,<0.11.0"]
