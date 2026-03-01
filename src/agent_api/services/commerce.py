@@ -1,18 +1,18 @@
 from __future__ import annotations
+
 from collections.abc import Sequence
 
 import structlog
 
-from agent_api.core.exceptions import BusinessRuleError, EntityNotFoundException, OwnershipError
+from agent_api.core.exceptions import BusinessRuleError, EntityNotFoundError, OwnershipError
 from agent_api.models.domain import Order, OrderStatus
 from agent_api.repository.order_repo import OrderRepository
 
 logger = structlog.get_logger(__name__)
 
-_UNCANCELLABLE_STATUSES: frozenset[OrderStatus] = frozenset({
-    OrderStatus.SHIPPED,
-    OrderStatus.DELIVERED
-})
+_UNCANCELLABLE_STATUSES: frozenset[OrderStatus] = frozenset(
+    {OrderStatus.SHIPPED, OrderStatus.DELIVERED}
+)
 
 
 class CommerceService:
@@ -26,13 +26,13 @@ class CommerceService:
 
     async def _get_order_or_raise(self, order_id: int) -> Order:
         """
-        Fetch an order by id or raise EntityNotFoundException.
+        Fetch an order by id or raise EntityNotFoundError.
         Central lookup used by all public methods to avoid duplication.
         """
         order = await self._order_repo.get_by_id(order_id)
         if not order:
             logger.warning("commerce.order_not_found", order_id=order_id)
-            raise EntityNotFoundException(f"Order #{order_id} could not be found.")
+            raise EntityNotFoundError(f"Order #{order_id} could not be found.")
         return order
 
     async def get_order_details(self, order_id: int, user_id: int | None = None) -> Order:
@@ -71,9 +71,7 @@ class CommerceService:
                 order_id=order_id,
                 user_id=user_id,
             )
-            raise OwnershipError(
-                f"Order #{order_id} could not be found."
-            )
+            raise OwnershipError(f"Order #{order_id} could not be found.")
 
         if order.status in _UNCANCELLABLE_STATUSES:
             logger.warning(
@@ -88,9 +86,7 @@ class CommerceService:
 
         if order.status == OrderStatus.CANCELLED:
             logger.info("commerce.order_already_cancelled", order_id=order_id)
-            raise BusinessRuleError(
-                f"Order #{order_id} is already cancelled."
-            )
+            raise BusinessRuleError(f"Order #{order_id} is already cancelled.")
 
         updated_order = await self._order_repo.update_status(
             order_id=order_id,
@@ -99,9 +95,7 @@ class CommerceService:
 
         if not updated_order:
             logger.error("commerce.order_update_failed", order_id=order_id)
-            raise EntityNotFoundException(
-                f"Order #{order_id} could not be updated. Please try again."
-            )
+            raise EntityNotFoundError(f"Order #{order_id} could not be updated. Please try again.")
 
         logger.info("commerce.order_cancelled", order_id=order_id)
         return updated_order
@@ -121,4 +115,3 @@ class CommerceService:
             ],
             "count": len(orders),
         }
-

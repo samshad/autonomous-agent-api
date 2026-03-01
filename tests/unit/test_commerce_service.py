@@ -5,7 +5,7 @@ import pytest
 
 from agent_api.core.exceptions import (
     BusinessRuleError,
-    EntityNotFoundException,
+    EntityNotFoundError,
     OwnershipError,
 )
 from agent_api.models.domain import Order, OrderStatus
@@ -38,10 +38,10 @@ async def test_get_order_details_success(commerce_service: CommerceService, mock
 
 @pytest.mark.asyncio
 async def test_get_order_details_not_found(commerce_service: CommerceService, mock_order_repo: AsyncMock) -> None:
-    """Ensures EntityNotFoundException is raised when order doesn't exist."""
+    """Ensures EntityNotFoundError is raised when order doesn't exist."""
     mock_order_repo.get_by_id.return_value = None
 
-    with pytest.raises(EntityNotFoundException) as exc_info:
+    with pytest.raises(EntityNotFoundError) as exc_info:
         await commerce_service.get_order_details(order_id=999)
 
     assert "could not be found" in str(exc_info.value)
@@ -105,12 +105,12 @@ async def test_cancel_order_already_cancelled(commerce_service: CommerceService,
 
 @pytest.mark.asyncio
 async def test_cancel_order_update_fails(commerce_service: CommerceService, mock_order_repo: AsyncMock) -> None:
-    """Ensures EntityNotFoundException is raised if the update mysteriously fails mid-transaction."""
+    """Ensures EntityNotFoundError is raised if the update mysteriously fails mid-transaction."""
     mock_order = Order(id=1, user_id=100, status=OrderStatus.PENDING)
     mock_order_repo.get_by_id.return_value = mock_order
     mock_order_repo.update_status.return_value = None  # Simulate update failure
 
-    with pytest.raises(EntityNotFoundException):
+    with pytest.raises(EntityNotFoundError):
         await commerce_service.cancel_order(order_id=1)
 
 
