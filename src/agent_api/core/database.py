@@ -30,11 +30,27 @@ class DatabaseManager:
             result = await session.execute(...)
     """
 
-    def __init__(self, database_url: str, echo: bool = False) -> None:
+    def __init__(
+        self,
+        database_url: str,
+        echo: bool = False,
+        pool_size: int = 5,
+        pool_max_overflow: int = 10,
+        pool_recycle_seconds: int = 300,
+    ) -> None:
+        # SQLite (used in tests) does not support pool configuration
+        is_sqlite = database_url.startswith("sqlite")
+        pool_kwargs: dict = {} if is_sqlite else {
+            "pool_size": pool_size,
+            "pool_max_overflow": pool_max_overflow,
+            "pool_recycle": pool_recycle_seconds,
+        }
+
         self._engine: AsyncEngine = create_async_engine(
             database_url,
             echo=echo,
             pool_pre_ping=True,
+            **pool_kwargs,
         )
         self._session_factory = async_sessionmaker(
             bind=self._engine,
