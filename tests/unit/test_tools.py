@@ -4,7 +4,7 @@ from datetime import UTC, datetime
 import pytest
 
 from agent_api.agent.tools import cancel_order_tool, list_orders_tool, get_order_details_tool
-from agent_api.core.exceptions import BusinessRuleError, EntityNotFoundException, OwnershipError
+from agent_api.core.exceptions import BusinessRuleError, EntityNotFoundError, OwnershipError
 from agent_api.models.domain import Order, OrderStatus
 from agent_api.services.commerce import CommerceService
 
@@ -73,7 +73,7 @@ async def test_get_order_details_tool_success(mock_service: AsyncMock) -> None:
 @pytest.mark.asyncio
 async def test_get_order_details_tool_not_found(mock_service: AsyncMock) -> None:
     """Ensures a missing order exception is caught and returned as a string."""
-    mock_service.get_order_details.side_effect = EntityNotFoundException("Order #999 could not be found.")
+    mock_service.get_order_details.side_effect = EntityNotFoundError("Order #999 could not be found.")
 
     result = await get_order_details_tool(service=mock_service, order_id=999)
 
@@ -84,7 +84,7 @@ async def test_get_order_details_tool_not_found(mock_service: AsyncMock) -> None
 @pytest.mark.asyncio
 async def test_get_order_details_tool_ownership_error(mock_service: AsyncMock) -> None:
     """Ensures attempting to view another user's order returns a safe failure string."""
-    # Simulate the service raising an OwnershipError (which extends AgentAPIException)
+    # Simulate the service raising an OwnershipError (which extends AgentAPIError)
     mock_service.get_order_details.side_effect = OwnershipError("Order #55 could not be found.")
 
     # Act

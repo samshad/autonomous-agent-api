@@ -46,24 +46,9 @@ async def main() -> None:
         session.add_all([o1, o2, o3])
         await session.flush()
 
-        ot1 = OrderItem(
-            order_id=o1.id,
-            product_id=p1.id,
-            quantity=1,
-            unit_price=p1.price
-        )
-        ot2 = OrderItem(
-            order_id=o2.id,
-            product_id=p2.id,
-            quantity=2,
-            unit_price=p3.price
-        )
-        ot3 = OrderItem(
-            order_id=o3.id,
-            product_id=p3.id,
-            quantity=3,
-            unit_price=p3.price
-        )
+        ot1 = OrderItem(order_id=o1.id, product_id=p1.id, quantity=1, unit_price=p1.price)
+        ot2 = OrderItem(order_id=o2.id, product_id=p2.id, quantity=2, unit_price=p3.price)
+        ot3 = OrderItem(order_id=o3.id, product_id=p3.id, quantity=3, unit_price=p3.price)
 
         session.add_all([ot1, ot2, ot3])
 

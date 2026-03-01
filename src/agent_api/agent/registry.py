@@ -15,6 +15,7 @@ logger = structlog.get_logger(__name__)
 @dataclass(frozen=True)
 class Tool:
     """Represents an executable action available to the LLM."""
+
     name: str
     description: str
     func: Callable[..., Awaitable[str]]
@@ -59,7 +60,6 @@ class ToolRegistry:
             description = inspect.getdoc(func)
 
             if not description:
-                # Fail fast at startup: The LLM *must* have a description to know how to use the tool.
                 logger.error("tool_registration_missing_docstring", tool_name=tool_name)
                 raise ValueError(f"Tool function '{tool_name}' must have a docstring.")
 
