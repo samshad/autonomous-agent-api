@@ -3,6 +3,7 @@ from __future__ import annotations
 import structlog
 from pydantic import BaseModel, Field
 
+from agent_api.agent.registry import registry
 from agent_api.core.exceptions import AgentAPIException
 from agent_api.services.commerce import CommerceService
 
@@ -41,6 +42,7 @@ class GetOrderDetailsArgs(BaseModel):
     )
 
 
+@registry.register(args_schema=CancelOrderArgs)
 async def cancel_order_tool(
         service: CommerceService,
         order_id: int,
@@ -66,6 +68,7 @@ async def cancel_order_tool(
         return "Action Failed: An unexpected system error occurred while attempting to cancel the order."
 
 
+@registry.register(args_schema=ListOrdersArgs)
 async def list_orders_tool(
         service: CommerceService,
         user_id: int
@@ -96,6 +99,7 @@ async def list_orders_tool(
         return "Action Failed: An unexpected system error occurred while listing orders."
 
 
+@registry.register(args_schema=GetOrderDetailsArgs)
 async def get_order_details_tool(
         service: CommerceService,
         order_id: int,
