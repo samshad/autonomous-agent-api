@@ -40,11 +40,15 @@ class DatabaseManager:
     ) -> None:
         # SQLite (used in tests) does not support pool configuration
         is_sqlite = database_url.startswith("sqlite")
-        pool_kwargs: dict = {} if is_sqlite else {
-            "pool_size": pool_size,
-            "pool_max_overflow": pool_max_overflow,
-            "pool_recycle": pool_recycle_seconds,
-        }
+        pool_kwargs: dict = (
+            {}
+            if is_sqlite
+            else {
+                "pool_size": pool_size,
+                "max_overflow": pool_max_overflow,
+                "pool_recycle": pool_recycle_seconds,
+            }
+        )
 
         self._engine: AsyncEngine = create_async_engine(
             database_url,

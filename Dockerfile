@@ -9,9 +9,10 @@ WORKDIR /app
 
 ENV UV_COMPILE_BYTECODE=1
 
-COPY pyproject.toml uv.lock* ./
+COPY pyproject.toml uv.lock* README.md ./
+COPY src/ ./src/
 
-RUN uv sync --frozen --no-dev --no-install-project
+RUN uv sync --frozen --no-dev
 
 # ==========================================
 # Stage 2: Production Runtime
@@ -28,11 +29,10 @@ RUN groupadd -g 10001 appgroup && \
     useradd -u 10001 -g appgroup -s /sbin/nologin -M appuser
 
 COPY --from=builder --chown=appuser:appgroup /app/.venv /app/.venv
-
-COPY --chown=appuser:appgroup src/ ./src/
+COPY --from=builder --chown=appuser:appgroup /app/src /app/src
 
 USER appuser
 
 EXPOSE 8000
 
-CMD ["uvicorn", "agent_api.main:app", "--host", "0.0.0.0", "--port", "8000", "--app-dir", "src"]
+CMD ["uvicorn", "agent_api.main:app", "--host", "0.0.0.0", "--port", "8000"]

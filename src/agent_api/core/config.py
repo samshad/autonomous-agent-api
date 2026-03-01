@@ -1,9 +1,17 @@
 from __future__ import annotations
 
+from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as _pkg_version
 
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _get_version() -> str:
+    try:
+        return _pkg_version("autonomous-agent-api")
+    except PackageNotFoundError:
+        return "0.0.0-dev"
 
 
 class Settings(BaseSettings):
@@ -20,7 +28,7 @@ class Settings(BaseSettings):
     )
     debug: bool = False
     app_version: str = Field(
-        default_factory=lambda: _pkg_version("autonomous-agent-api"),
+        default_factory=_get_version,
         description="Populated automatically from package metadata.",
     )
 

@@ -31,7 +31,6 @@ async def main() -> None:
 
     db_manager = DatabaseManager(database_url=settings.database_url, echo=False)
 
-
     async with db_manager.session() as session:
         logger.info("seeding_dummy_data")
 

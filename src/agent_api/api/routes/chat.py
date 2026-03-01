@@ -1,5 +1,6 @@
 import structlog
-from fastapi import APIRouter, Depends, Request as FastAPIRequest
+from fastapi import APIRouter, Depends
+from fastapi import Request as FastAPIRequest
 
 from agent_api.agent.engine import AgentEngine
 from agent_api.api.dependencies import get_agent_engine

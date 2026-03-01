@@ -31,9 +31,7 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
     5. Returns the header to the caller.
     """
 
-    async def dispatch(
-        self, request: Request, call_next: RequestResponseEndpoint
-    ) -> Response:
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         # ── 1. Resolve or generate a request ID ─────────────────────────
         request_id = request.headers.get(REQUEST_ID_HEADER) or str(uuid.uuid4())
 
@@ -102,4 +100,3 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
         except Exception as exc:
             # Never let observability crash the response
             logger.warning("request_log_persist_failed", error=str(exc))
-
