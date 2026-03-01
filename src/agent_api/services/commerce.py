@@ -35,9 +35,23 @@ class CommerceService:
             raise EntityNotFoundException(f"Order #{order_id} could not be found.")
         return order
 
-    async def get_order_details(self, order_id: int) -> Order:
-        """Retrieve a single order, raising EntityNotFoundException if absent."""
-        return await self._get_order_or_raise(order_id)
+    async def get_order_details(self, order_id: int, user_id: int | None = None) -> Order:
+        """
+        Retrieve a single order.
+        Enforces ownership if user_id is provided, raising OwnershipError if mismatched.
+        """
+        order = await self._get_order_or_raise(order_id)
+
+        if user_id is not None and order.user_id != user_id:
+            logger.warning(
+                "commerce.ownership_check_failed",
+                order_id=order_id,
+                user_id=user_id,
+            )
+            logger.error("OwnershipError: Ownership check failed", order_id=order_id)
+            raise OwnershipError(f"Order #{order_id} could not be found.")
+
+        return order
 
     async def cancel_order(self, order_id: int, user_id: int | None = None) -> Order:
         """
