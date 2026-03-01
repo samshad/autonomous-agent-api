@@ -1,0 +1,367 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1520" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <!-- Shadows -->
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+    <filter id="shadowLg" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.15"/>
+    </filter>
+    <!-- Arrow marker -->
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" fill="#64748b">
+      <polygon points="0 0, 10 3.5, 0 7"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" fill="#3b82f6">
+      <polygon points="0 0, 10 3.5, 0 7"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" fill="#10b981">
+      <polygon points="0 0, 10 3.5, 0 7"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" fill="#f59e0b">
+      <polygon points="0 0, 10 3.5, 0 7"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" fill="#8b5cf6">
+      <polygon points="0 0, 10 3.5, 0 7"/>
+    </marker>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+    <linearGradient id="middlewareGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ede9fe"/>
+      <stop offset="100%" stop-color="#ddd6fe"/>
+    </linearGradient>
+    <linearGradient id="apiGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="100%" stop-color="#bfdbfe"/>
+    </linearGradient>
+    <linearGradient id="agentGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d1fae5"/>
+      <stop offset="100%" stop-color="#a7f3d0"/>
+    </linearGradient>
+    <linearGradient id="serviceGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fce7f3"/>
+      <stop offset="100%" stop-color="#fbcfe8"/>
+    </linearGradient>
+    <linearGradient id="dataGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fee2e2"/>
+      <stop offset="100%" stop-color="#fecaca"/>
+    </linearGradient>
+    <linearGradient id="infraGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#bae6fd"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="1520" rx="16" fill="url(#bgGrad)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- HEADER                                                             -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="20" width="1200" height="72" rx="12" fill="url(#headerGrad)" filter="url(#shadowLg)"/>
+  <text x="640" y="50" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="700" letter-spacing="0.5">Autonomous E-Commerce Agent API — System Architecture</text>
+  <text x="640" y="72" text-anchor="middle" fill="#94a3b8" font-size="12">FastAPI · ReAct Loop · SQLAlchemy · PostgreSQL · Ollama LLM · Alembic · structlog</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 1. CLIENT LAYER                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="112" width="1200" height="100" rx="12" fill="url(#clientGrad)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="136" fill="#92400e" font-size="11" font-weight="700" letter-spacing="1">EXTERNAL CLIENTS</text>
+
+  <!-- Postman -->
+  <rect x="80" y="148" width="160" height="48" rx="8" fill="#fff" stroke="#f59e0b" stroke-width="1" filter="url(#shadow)"/>
+  <text x="160" y="170" text-anchor="middle" fill="#92400e" font-size="13" font-weight="600">🧪 Postman</text>
+  <text x="160" y="186" text-anchor="middle" fill="#a16207" font-size="10">REST Client</text>
+
+  <!-- Frontend -->
+  <rect x="280" y="148" width="160" height="48" rx="8" fill="#fff" stroke="#f59e0b" stroke-width="1" filter="url(#shadow)"/>
+  <text x="360" y="170" text-anchor="middle" fill="#92400e" font-size="13" font-weight="600">🌐 Frontend App</text>
+  <text x="360" y="186" text-anchor="middle" fill="#a16207" font-size="10">React / Next.js</text>
+
+  <!-- cURL -->
+  <rect x="480" y="148" width="160" height="48" rx="8" fill="#fff" stroke="#f59e0b" stroke-width="1" filter="url(#shadow)"/>
+  <text x="560" y="170" text-anchor="middle" fill="#92400e" font-size="13" font-weight="600">⌨️ cURL / SDK</text>
+  <text x="560" y="186" text-anchor="middle" fill="#a16207" font-size="10">CLI / Programmatic</text>
+
+  <!-- Health Monitor -->
+  <rect x="680" y="148" width="180" height="48" rx="8" fill="#fff" stroke="#f59e0b" stroke-width="1" filter="url(#shadow)"/>
+  <text x="770" y="170" text-anchor="middle" fill="#92400e" font-size="13" font-weight="600">💓 Health Monitor</text>
+  <text x="770" y="186" text-anchor="middle" fill="#a16207" font-size="10">GET /health</text>
+
+  <!-- Arrows from clients down -->
+  <line x1="360" y1="196" x2="360" y2="232" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="370" y="220" fill="#92400e" font-size="9" font-weight="600">POST /api/v1/chat</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 2. MIDDLEWARE LAYER                                                -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="232" width="1200" height="130" rx="12" fill="url(#middlewareGrad)" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="256" fill="#5b21b6" font-size="11" font-weight="700" letter-spacing="1">MIDDLEWARE PIPELINE</text>
+
+  <!-- CORS -->
+  <rect x="80" y="268" width="220" height="76" rx="8" fill="#fff" stroke="#8b5cf6" stroke-width="1" filter="url(#shadow)"/>
+  <text x="190" y="290" text-anchor="middle" fill="#5b21b6" font-size="13" font-weight="600">🔒 CORS Middleware</text>
+  <text x="190" y="308" text-anchor="middle" fill="#7c3aed" font-size="10">CORSMiddleware</text>
+  <text x="190" y="324" text-anchor="middle" fill="#6b7280" font-size="9">Origins / Methods / Headers</text>
+  <text x="190" y="336" text-anchor="middle" fill="#6b7280" font-size="9">from settings.cors_allowed_origins</text>
+
+  <!-- Request ID -->
+  <rect x="330" y="268" width="280" height="76" rx="8" fill="#fff" stroke="#8b5cf6" stroke-width="1" filter="url(#shadow)"/>
+  <text x="470" y="290" text-anchor="middle" fill="#5b21b6" font-size="13" font-weight="600">🆔 Request ID Middleware</text>
+  <text x="470" y="308" text-anchor="middle" fill="#7c3aed" font-size="10">RequestIDMiddleware</text>
+  <text x="470" y="324" text-anchor="middle" fill="#6b7280" font-size="9">X-Request-ID header · structlog binding</text>
+  <text x="470" y="336" text-anchor="middle" fill="#6b7280" font-size="9">Duration tracking · Persists RequestLog to DB</text>
+
+  <!-- Exception Handlers -->
+  <rect x="640" y="268" width="260" height="76" rx="8" fill="#fff" stroke="#8b5cf6" stroke-width="1" filter="url(#shadow)"/>
+  <text x="770" y="290" text-anchor="middle" fill="#5b21b6" font-size="13" font-weight="600">⚠️ Exception Handlers</text>
+  <text x="770" y="308" text-anchor="middle" fill="#7c3aed" font-size="10">AgentAPIError → JSON</text>
+  <text x="770" y="324" text-anchor="middle" fill="#6b7280" font-size="9">Domain errors → 4xx structured response</text>
+  <text x="770" y="336" text-anchor="middle" fill="#6b7280" font-size="9">Unhandled → 500 safe generic message</text>
+
+  <!-- Lifespan -->
+  <rect x="930" y="268" width="280" height="76" rx="8" fill="#fff" stroke="#8b5cf6" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1070" y="290" text-anchor="middle" fill="#5b21b6" font-size="13" font-weight="600">⚡ Lifespan Manager</text>
+  <text x="1070" y="308" text-anchor="middle" fill="#7c3aed" font-size="10">Startup / Shutdown</text>
+  <text x="1070" y="324" text-anchor="middle" fill="#6b7280" font-size="9">Init DatabaseManager + httpx.AsyncClient</text>
+  <text x="1070" y="336" text-anchor="middle" fill="#6b7280" font-size="9">Attach to app.state for DI</text>
+
+  <!-- Arrow down -->
+  <line x1="470" y1="344" x2="470" y2="382" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrowPurple)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 3. API / PRESENTATION LAYER                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="382" width="1200" height="130" rx="12" fill="url(#apiGrad)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="406" fill="#1e40af" font-size="11" font-weight="700" letter-spacing="1">API / PRESENTATION LAYER</text>
+
+  <!-- Chat Router -->
+  <rect x="80" y="418" width="300" height="76" rx="8" fill="#fff" stroke="#3b82f6" stroke-width="1" filter="url(#shadow)"/>
+  <text x="230" y="440" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="600">📡 Chat Router</text>
+  <text x="230" y="458" text-anchor="middle" fill="#3b82f6" font-size="10">POST /api/v1/chat</text>
+  <text x="230" y="474" text-anchor="middle" fill="#6b7280" font-size="9">ChatRequest → AgentEngine.run() → ChatResponse</text>
+  <text x="230" y="486" text-anchor="middle" fill="#6b7280" font-size="9">Includes request_id in response body</text>
+
+  <!-- Dependencies -->
+  <rect x="420" y="418" width="380" height="76" rx="8" fill="#fff" stroke="#3b82f6" stroke-width="1" filter="url(#shadow)"/>
+  <text x="610" y="440" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="600">🔌 Dependency Injection</text>
+  <text x="610" y="458" text-anchor="middle" fill="#3b82f6" font-size="10">dependencies.py — FastAPI Depends()</text>
+  <text x="610" y="474" text-anchor="middle" fill="#6b7280" font-size="9">get_db_session → Unit of Work (commit / rollback)</text>
+  <text x="610" y="486" text-anchor="middle" fill="#6b7280" font-size="9">get_agent_engine → assembles Repo → Service → LLM → Engine</text>
+
+  <!-- Pydantic Schemas -->
+  <rect x="840" y="418" width="370" height="76" rx="8" fill="#fff" stroke="#3b82f6" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1025" y="440" text-anchor="middle" fill="#1e40af" font-size="13" font-weight="600">📋 Pydantic Schemas</text>
+  <text x="1025" y="458" text-anchor="middle" fill="#3b82f6" font-size="10">schemas.py</text>
+  <text x="1025" y="474" text-anchor="middle" fill="#6b7280" font-size="9">ChatRequest: prompt (1..2000) + user_id?</text>
+  <text x="1025" y="486" text-anchor="middle" fill="#6b7280" font-size="9">ChatResponse: response + request_id</text>
+
+  <!-- Arrow down -->
+  <line x1="350" y1="494" x2="350" y2="532" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 4. AGENT / ORCHESTRATION LAYER                                     -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="532" width="1200" height="265" rx="12" fill="url(#agentGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="556" fill="#065f46" font-size="11" font-weight="700" letter-spacing="1">AGENT / ORCHESTRATION LAYER — ReAct Loop</text>
+
+  <!-- Agent Engine -->
+  <rect x="80" y="568" width="520" height="100" rx="8" fill="#fff" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="340" y="590" text-anchor="middle" fill="#065f46" font-size="14" font-weight="700">🧠 AgentEngine</text>
+  <text x="340" y="608" text-anchor="middle" fill="#10b981" font-size="10">agent/engine.py — Autonomous ReAct Orchestrator</text>
+  <text x="340" y="628" text-anchor="middle" fill="#6b7280" font-size="9">1. REASON — Send messages + tool schemas to LLM</text>
+  <text x="340" y="642" text-anchor="middle" fill="#6b7280" font-size="9">2. ACT — Execute tool via ToolRegistry (Pydantic validated, IDOR protected)</text>
+  <text x="340" y="656" text-anchor="middle" fill="#6b7280" font-size="9">3. OBSERVE — Feed tool result back to LLM → repeat or respond</text>
+
+  <!-- LLM Client -->
+  <rect x="640" y="568" width="280" height="100" rx="8" fill="#fff" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="780" y="590" text-anchor="middle" fill="#065f46" font-size="14" font-weight="700">🤖 LLM Client</text>
+  <text x="780" y="608" text-anchor="middle" fill="#10b981" font-size="10">agent/llm_client.py</text>
+  <text x="780" y="628" text-anchor="middle" fill="#6b7280" font-size="9">Protocol: LLMClient (DIP interface)</text>
+  <text x="780" y="642" text-anchor="middle" fill="#6b7280" font-size="9">Concrete: OllamaClient</text>
+  <text x="780" y="656" text-anchor="middle" fill="#6b7280" font-size="9">Shared httpx.AsyncClient pool</text>
+
+  <!-- Tool Registry -->
+  <rect x="80" y="682" width="520" height="100" rx="8" fill="#fff" stroke="#10b981" stroke-width="1" filter="url(#shadow)"/>
+  <text x="340" y="704" text-anchor="middle" fill="#065f46" font-size="13" font-weight="600">🔧 Tool Registry + Tools</text>
+  <text x="340" y="722" text-anchor="middle" fill="#10b981" font-size="10">agent/registry.py + agent/tools.py</text>
+  <text x="340" y="740" text-anchor="middle" fill="#6b7280" font-size="9">@registry.register decorator · OpenAI-compatible JSON schema generation</text>
+  <text x="340" y="754" text-anchor="middle" fill="#6b7280" font-size="9">cancel_order_tool · list_orders_tool · get_order_details_tool</text>
+  <text x="340" y="768" text-anchor="middle" fill="#6b7280" font-size="9">@safe_tool_execution wrapper: domain errors → LLM-readable strings</text>
+
+  <!-- ReAct Loop Arrow (circular) -->
+  <rect x="960" y="568" width="250" height="214" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="1085" y="592" text-anchor="middle" fill="#065f46" font-size="12" font-weight="700">♻️ ReAct Loop</text>
+  <text x="1085" y="618" text-anchor="middle" fill="#065f46" font-size="11" font-weight="600">1. REASON</text>
+  <text x="1085" y="634" text-anchor="middle" fill="#6b7280" font-size="9">LLM decides next action</text>
+  <text x="1085" y="660" text-anchor="middle" fill="#065f46" font-size="11" font-weight="600">2. ACT</text>
+  <text x="1085" y="676" text-anchor="middle" fill="#6b7280" font-size="9">Execute tool call</text>
+  <text x="1085" y="702" text-anchor="middle" fill="#065f46" font-size="11" font-weight="600">3. OBSERVE</text>
+  <text x="1085" y="718" text-anchor="middle" fill="#6b7280" font-size="9">Append result to messages</text>
+  <text x="1085" y="748" text-anchor="middle" fill="#065f46" font-size="11" font-weight="600">→ Loop or Final Answer</text>
+  <text x="1085" y="768" text-anchor="middle" fill="#6b7280" font-size="9">max_react_iterations safety</text>
+
+  <!-- Connection: Engine → LLM -->
+  <line x1="600" y1="618" x2="640" y2="618" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Connection: Engine → Tools -->
+  <line x1="340" y1="668" x2="340" y2="682" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Arrow down from agent layer -->
+  <line x1="340" y1="782" x2="340" y2="817" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 5. BUSINESS / SERVICE LAYER                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="817" width="1200" height="120" rx="12" fill="url(#serviceGrad)" stroke="#ec4899" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="841" fill="#9d174d" font-size="11" font-weight="700" letter-spacing="1">BUSINESS / SERVICE LAYER</text>
+
+  <!-- Commerce Service -->
+  <rect x="80" y="853" width="520" height="68" rx="8" fill="#fff" stroke="#ec4899" stroke-width="1" filter="url(#shadow)"/>
+  <text x="340" y="875" text-anchor="middle" fill="#9d174d" font-size="13" font-weight="600">🏪 CommerceService</text>
+  <text x="340" y="893" text-anchor="middle" fill="#db2777" font-size="10">services/commerce.py</text>
+  <text x="340" y="909" text-anchor="middle" fill="#6b7280" font-size="9">get_order_details · cancel_order · list_orders · _verify_ownership · _get_order_or_raise</text>
+
+  <!-- Exception Hierarchy -->
+  <rect x="640" y="853" width="570" height="68" rx="8" fill="#fff" stroke="#ec4899" stroke-width="1" filter="url(#shadow)"/>
+  <text x="925" y="875" text-anchor="middle" fill="#9d174d" font-size="13" font-weight="600">🚨 Domain Exception Hierarchy</text>
+  <text x="925" y="893" text-anchor="middle" fill="#db2777" font-size="10">core/exceptions.py</text>
+  <text x="925" y="909" text-anchor="middle" fill="#6b7280" font-size="9">AgentAPIError → EntityNotFoundError (404) · BusinessRuleError (422) · OwnershipError (404) · ConflictError (409)</text>
+
+  <!-- Arrow down -->
+  <line x1="340" y1="921" x2="340" y2="957" stroke="#ec4899" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 6. DATA ACCESS LAYER                                               -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="957" width="1200" height="120" rx="12" fill="url(#dataGrad)" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="981" fill="#991b1b" font-size="11" font-weight="700" letter-spacing="1">DATA ACCESS LAYER</text>
+
+  <!-- Order Repo -->
+  <rect x="80" y="993" width="380" height="68" rx="8" fill="#fff" stroke="#ef4444" stroke-width="1" filter="url(#shadow)"/>
+  <text x="270" y="1015" text-anchor="middle" fill="#991b1b" font-size="13" font-weight="600">📦 OrderRepository</text>
+  <text x="270" y="1033" text-anchor="middle" fill="#ef4444" font-size="10">repository/order_repo.py</text>
+  <text x="270" y="1049" text-anchor="middle" fill="#6b7280" font-size="9">get_by_id · get_orders_by_user · update_status (flush + refresh)</text>
+
+  <!-- Domain Models -->
+  <rect x="500" y="993" width="380" height="68" rx="8" fill="#fff" stroke="#ef4444" stroke-width="1" filter="url(#shadow)"/>
+  <text x="690" y="1015" text-anchor="middle" fill="#991b1b" font-size="13" font-weight="600">📊 SQLAlchemy Domain Models</text>
+  <text x="690" y="1033" text-anchor="middle" fill="#ef4444" font-size="10">models/domain.py</text>
+  <text x="690" y="1049" text-anchor="middle" fill="#6b7280" font-size="9">User · Order · Product · OrderItem · RequestLog · TimestampMixin</text>
+
+  <!-- Alembic -->
+  <rect x="920" y="993" width="290" height="68" rx="8" fill="#fff" stroke="#ef4444" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1065" y="1015" text-anchor="middle" fill="#991b1b" font-size="13" font-weight="600">🔄 Alembic Migrations</text>
+  <text x="1065" y="1033" text-anchor="middle" fill="#ef4444" font-size="10">migrations/env.py</text>
+  <text x="1065" y="1049" text-anchor="middle" fill="#6b7280" font-size="9">Async migrations · reads URL from Settings</text>
+
+  <!-- Arrow down -->
+  <line x1="340" y1="1061" x2="340" y2="1097" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 7. INFRASTRUCTURE LAYER                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="1097" width="1200" height="160" rx="12" fill="url(#infraGrad)" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="1121" fill="#0c4a6e" font-size="11" font-weight="700" letter-spacing="1">INFRASTRUCTURE LAYER</text>
+
+  <!-- PostgreSQL -->
+  <rect x="80" y="1133" width="330" height="106" rx="8" fill="#fff" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="245" y="1158" text-anchor="middle" fill="#0c4a6e" font-size="14" font-weight="700">🐘 PostgreSQL</text>
+  <text x="245" y="1176" text-anchor="middle" fill="#0ea5e9" font-size="10">asyncpg driver · Connection pool</text>
+  <text x="245" y="1196" text-anchor="middle" fill="#6b7280" font-size="9">Tables: users · orders · products</text>
+  <text x="245" y="1210" text-anchor="middle" fill="#6b7280" font-size="9">order_items · request_logs</text>
+  <text x="245" y="1228" text-anchor="middle" fill="#6b7280" font-size="9">pool_size / max_overflow / pool_recycle from .env</text>
+
+  <!-- Ollama LLM -->
+  <rect x="450" y="1133" width="330" height="106" rx="8" fill="#fff" stroke="#0ea5e9" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="615" y="1158" text-anchor="middle" fill="#0c4a6e" font-size="14" font-weight="700">🦙 Ollama LLM Server</text>
+  <text x="615" y="1176" text-anchor="middle" fill="#0ea5e9" font-size="10">POST /api/chat</text>
+  <text x="615" y="1196" text-anchor="middle" fill="#6b7280" font-size="9">Model: configurable via LLM_MODEL env</text>
+  <text x="615" y="1210" text-anchor="middle" fill="#6b7280" font-size="9">Timeout: LLM_TIMEOUT (120s default)</text>
+  <text x="615" y="1228" text-anchor="middle" fill="#6b7280" font-size="9">Tool-calling (function schemas)</text>
+
+  <!-- Observability -->
+  <rect x="820" y="1133" width="390" height="106" rx="8" fill="#fff" stroke="#0ea5e9" stroke-width="1" filter="url(#shadow)"/>
+  <text x="1015" y="1158" text-anchor="middle" fill="#0c4a6e" font-size="14" font-weight="700">📈 Observability Stack</text>
+  <text x="1015" y="1176" text-anchor="middle" fill="#0ea5e9" font-size="10">structlog (JSON) + Better Stack</text>
+  <text x="1015" y="1196" text-anchor="middle" fill="#6b7280" font-size="9">Rotating file handler (logs/ directory)</text>
+  <text x="1015" y="1210" text-anchor="middle" fill="#6b7280" font-size="9">Context vars: request_id auto-bound</text>
+  <text x="1015" y="1228" text-anchor="middle" fill="#6b7280" font-size="9">request_logs table for auditing</text>
+
+  <!-- Arrow: LLM Client → Ollama -->
+  <line x1="780" y1="668" x2="780" y2="790" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <line x1="780" y1="790" x2="1200" y2="790" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <line x1="1200" y1="790" x2="1200" y2="1097" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <line x1="1200" y1="1097" x2="615" y2="1097" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrowGreen)"/>
+  <text x="900" y="782" fill="#065f46" font-size="9" font-weight="600">httpx.AsyncClient</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 8. CONFIGURATION LAYER (bottom bar)                                -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="1280" width="1200" height="80" rx="12" fill="#1e293b" filter="url(#shadowLg)"/>
+  <text x="60" y="1304" fill="#f8fafc" font-size="11" font-weight="700" letter-spacing="1">CONFIGURATION — core/config.py (pydantic-settings · .env)</text>
+
+  <rect x="80" y="1314" width="180" height="32" rx="6" fill="#334155"/>
+  <text x="170" y="1335" text-anchor="middle" fill="#94a3b8" font-size="10">DATABASE_URL</text>
+
+  <rect x="275" y="1314" width="130" height="32" rx="6" fill="#334155"/>
+  <text x="340" y="1335" text-anchor="middle" fill="#94a3b8" font-size="10">LLM_MODEL</text>
+
+  <rect x="420" y="1314" width="140" height="32" rx="6" fill="#334155"/>
+  <text x="490" y="1335" text-anchor="middle" fill="#94a3b8" font-size="10">LLM_BASE_URL</text>
+
+  <rect x="575" y="1314" width="120" height="32" rx="6" fill="#334155"/>
+  <text x="635" y="1335" text-anchor="middle" fill="#94a3b8" font-size="10">POOL_SIZE</text>
+
+  <rect x="710" y="1314" width="140" height="32" rx="6" fill="#334155"/>
+  <text x="780" y="1335" text-anchor="middle" fill="#94a3b8" font-size="10">ENVIRONMENT</text>
+
+  <rect x="865" y="1314" width="130" height="32" rx="6" fill="#334155"/>
+  <text x="930" y="1335" text-anchor="middle" fill="#94a3b8" font-size="10">LOG_LEVEL</text>
+
+  <rect x="1010" y="1314" width="200" height="32" rx="6" fill="#334155"/>
+  <text x="1110" y="1335" text-anchor="middle" fill="#94a3b8" font-size="10">MAX_REACT_ITERATIONS</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 9. DOCKER / DEPLOYMENT BAR                                         -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="1380" width="1200" height="56" rx="12" fill="#0f172a" filter="url(#shadowLg)"/>
+  <text x="60" y="1408" fill="#f8fafc" font-size="11" font-weight="700" letter-spacing="1">DEPLOYMENT</text>
+
+  <rect x="200" y="1390" width="160" height="32" rx="6" fill="#1e3a5f"/>
+  <text x="280" y="1411" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="600">🐳 Docker</text>
+
+  <rect x="380" y="1390" width="200" height="32" rx="6" fill="#1e3a5f"/>
+  <text x="480" y="1411" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="600">docker-compose.yml</text>
+
+  <rect x="600" y="1390" width="160" height="32" rx="6" fill="#1e3a5f"/>
+  <text x="680" y="1411" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="600">Uvicorn + uvloop</text>
+
+  <rect x="780" y="1390" width="200" height="32" rx="6" fill="#1e3a5f"/>
+  <text x="880" y="1411" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="600">python:3.12-slim + uv</text>
+
+  <rect x="1000" y="1390" width="210" height="32" rx="6" fill="#1e3a5f"/>
+  <text x="1105" y="1411" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="600">Non-root (appuser:10001)</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- 10. DESIGN PRINCIPLES FOOTER                                       -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="40" y="1456" width="1200" height="44" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="640" y="1474" text-anchor="middle" fill="#475569" font-size="10" font-weight="600" letter-spacing="0.3">
+    SOLID · DRY · Clean Architecture · Dependency Injection · Repository Pattern · Unit of Work · Protocol-based DIP · IDOR Protection · Fail-safe Observability
+  </text>
+  <text x="640" y="1490" text-anchor="middle" fill="#94a3b8" font-size="9">
+    © 2026 Samshad — Autonomous E-Commerce Agent API — MIT License
+  </text>
+</svg>
+

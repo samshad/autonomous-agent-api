@@ -2,6 +2,10 @@
 
 Async FastAPI API that acts as an **autonomous customer support agent**: natural language → ReAct loop + tool use (order lookup, cancel, list) → PostgreSQL via SQLAlchemy → natural language response.
 
+## System Architecture
+
+![System Architecture](docs/system-architecture.webp)
+
 ## Features
 
 - **Natural language to action**: e.g. *"Cancel my order #12345"* → validated DB update
